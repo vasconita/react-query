@@ -528,6 +528,15 @@ export class QueryObserver<
       )
 
     if (query === prevQuery) {
+      if (query.state !== this.currentResultState) {
+        console.warn('!!! query.state !== this.currentResultState !!!')
+        const prevResult = this.currentResult
+        this.updateResult()
+        if (prevResult !== this.currentResult) {
+          console.warn('!!! prevResult !== this.currentResult !!!')
+          this.notify({ listeners: true })
+        }
+      }
       return
     }
 
